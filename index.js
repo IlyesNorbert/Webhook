@@ -25,7 +25,6 @@ restService.post('/echo', function(req, res) {
         source: 'webhook-echo-sample'
     });
 });  
-});
 
 
 restService.listen((process.env.PORT || 8000), function() {
