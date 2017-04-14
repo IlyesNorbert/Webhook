@@ -20,8 +20,8 @@ restService.use(bodyParser.json());
 restService.post('/echo', function(req, res) {
     var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.room ? req.body.result.parameters.room : "Seems like some problem. Speak again."
     return res.json({
-        speech: "turn on the " + speech + " lamp",
-        displayText: "turn on the " + speech + " lamp",
+        speech: "The" + speech + "  lamp is turned on",
+        displayText: "The " + speech + " lamp is turned on",
         source: 'webhook-echo-sample'
     });
 });  
