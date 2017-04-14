@@ -26,6 +26,11 @@ restService.post('/echo', function(req, res) {
                     message   : speech,
                     callback  : function(e) { 
                         console.log( "SUCCESS!", e ); 
+					return res.json({
+								speech: "The " + speech + "  lamp is turned on",
+								displayText: "The " + speech + " lamp is turned on",
+								source: 'webhook-echo-sample'
+							});
 					},
                     error     : function(e) { 
                         response.tellWithCard("Could not connect", "Drone", "Could not connect");
