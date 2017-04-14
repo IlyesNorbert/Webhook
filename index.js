@@ -1,9 +1,9 @@
 'use strict';
-var pubnub = require("pubnub")({
+/* var pubnub = require("pubnub")({
     ssl           : true,  // <- enable TLS Tunneling over TCP 
     publish_key   : "pub-c-b1159858-e2a5-4fda-81ba-18e5a3c7a9ed",
     subscribe_key : "sub-c-bca32ba0-200c-11e7-bb8a-0619f8945a4f"
-});
+}); */
 
 
 const express = require('express');
