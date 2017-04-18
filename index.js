@@ -62,7 +62,7 @@ var  pubnubfunc = function(room, onOff)
 	}
 	var initiateMessage = { "command" : command,  "room" : room , "valueonoff" : onOff};
 	pubnub.publish({ 
-                    channel   : 'alma',
+                    channel   : 'alma1',
                     message   : initiateMessage,
                     callback  : function(e) { 
                         console.log( "SUCCESS!", e );
