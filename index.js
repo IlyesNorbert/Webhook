@@ -23,13 +23,12 @@ var success  = false;
 
 restService.post('/echo', function(req, res) {
     var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.room ? req.body.result.parameters.room : "Seems like some problem. Speak again."
-  	 pubnub.publish({ 
+  	pubnub.publish({ 
                     channel   : 'alma',
                     message   : speech,
                     callback  : function(e) { 
                         console.log( "SUCCESS!", e );
 						success	= true;
-						return;
 					},
                     error     : function(e) {
 						success = false;
