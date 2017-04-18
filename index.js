@@ -28,7 +28,8 @@ restService.post('/echo', function(req, res) {
                     message   : speech,
                     callback  : function(e) { 
                         console.log( "SUCCESS!", e );
-						success	= true;					
+						success	= true;
+						return;
 					},
                     error     : function(e) {
 						success = false;
