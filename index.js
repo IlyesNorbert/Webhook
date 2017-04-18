@@ -41,8 +41,8 @@ restService.post('/echo', function(req, res) {
 		init = true;
 		var init = req.body.result.init;
 		return res.json({
-			speech: "Home initialized : sessionId: " + sessionId,
-			displayText: "Home initialized : sessionId: " + sessionId,
+			speech: "Home initialized : sessionId: " + sessionId + " init :" + init,
+			displayText: "Home initialized : sessionId: " + sessionId + " init :" + init,
 			source: 'webhook-echo-sample'
 		});
 	}
