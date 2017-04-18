@@ -23,7 +23,17 @@ var success  = false;
 
 restService.post('/echo', function(req, res) {
     var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.room ? req.body.result.parameters.room : "Seems like some problem. Speak again."
-  	pubnub.publish({ 
+  	pubnubfunc(speech);
+	return res.json({
+		speech: "The " + speech + "  lamp is turned on",
+		displayText: "The " + speech + " lamp is turned on",
+		source: 'webhook-echo-sample'
+	});
+});  
+
+var  pubnubfunc = function(speech)
+{
+	pubnub.publish({ 
                     channel   : 'alma',
                     message   : speech,
                     callback  : function(e) { 
@@ -36,17 +46,7 @@ restService.post('/echo', function(req, res) {
                         console.log( "FAILED! RETRY PUBLISH!", e ); 
 						}
                 });  
-	if (success)
-	{
-	return res.json({
-		speech: "The " + speech + "  lamp is turned on",
-		displayText: "The " + speech + " lamp is turned on",
-		source: 'webhook-echo-sample'
-	});
-	}
-});  
-
-
+}
 restService.listen((process.env.PORT || 8000), function() {
     console.log("Server up and listening");
 });
