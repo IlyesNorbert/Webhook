@@ -19,25 +19,31 @@ restService.use(bodyParser.urlencoded({
 
 restService.use(bodyParser.json());
 
+var success  = false;
+
 restService.post('/echo', function(req, res) {
     var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.room ? req.body.result.parameters.room : "Seems like some problem. Speak again."
   	 pubnub.publish({ 
                     channel   : 'alma',
                     message   : speech,
                     callback  : function(e) { 
-                        console.log( "SUCCESS!", e ); 
-					return res.json({
-								speech: "The " + speech + "  lamp is turned on",
-								displayText: "The " + speech + " lamp is turned on",
-								source: 'webhook-echo-sample'
-							});
+                        console.log( "SUCCESS!", e );
+						success	= true;					
 					},
-                    error     : function(e) { 
+                    error     : function(e) {
+						success = false;
                         response.tellWithCard("Could not connect", "Drone", "Could not connect");
                         console.log( "FAILED! RETRY PUBLISH!", e ); 
 						}
                 });  
-
+	if (success)
+	{
+	return res.json({
+		speech: "The " + speech + "  lamp is turned on",
+		displayText: "The " + speech + " lamp is turned on",
+		source: 'webhook-echo-sample'
+	});
+	}
 });  
 
 
