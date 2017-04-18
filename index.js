@@ -22,9 +22,9 @@ restService.use(bodyParser.json());
 var success  = false;
 
 restService.post('/echo', function(req, res) {
-    var room = req.body.result && req.body.result.parameters && req.body.result.parameters.room ? req.body.result.parameters.room : "Seems like some problem. Room."
-  	var onOff = req.body.result && req.body.result.parameters && req.body.result.parameters.OnOff ? req.body.result.parameters.OnOff : "Seems like some problem. OnOff."
-	pubnubfunc(room, onOff);
+    //var room = req.body.result && req.body.result.parameters && req.body.result.parameters.room ? req.body.result.parameters.room : "Seems like some problem. Room."
+  	//var onOff = req.body.result && req.body.result.parameters && req.body.result.parameters.OnOff ? req.body.result.parameters.OnOff : "Seems like some problem. OnOff."
+	//pubnubfunc(room, onOff);
 	return res.json({
 		speech: "The " + room + "  lamp is turned " + onOff,
 		displayText: "The " + room + " lamp is turned " + onOff,
