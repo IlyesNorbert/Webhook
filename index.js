@@ -19,7 +19,7 @@ restService.use(bodyParser.urlencoded({
 
 restService.use(bodyParser.json());
 
-var sessionid = undefined;
+var sessionId = undefined;
 var init = false;
 
 restService.post('/echo', function(req, res) {
