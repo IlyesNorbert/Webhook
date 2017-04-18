@@ -22,20 +22,22 @@ restService.use(bodyParser.json());
 var success  = false;
 
 restService.post('/echo', function(req, res) {
-    var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.room ? req.body.result.parameters.room : "Seems like some problem. Speak again."
-  	pubnubfunc(speech);
+    var room = req.body.result && req.body.result.parameters && req.body.result.parameters.room ? req.body.result.parameters.room : "Seems like some problem. Room."
+  	var onOff = req.body.result && req.body.result.parameters && req.body.result.parameters.OnOff ? req.body.result.parameters.OnOff : "Seems like some problem. OnOff."
+	pubnubfunc(room, onOff);
 	return res.json({
-		speech: "The " + speech + "  lamp is turned on",
-		displayText: "The " + speech + " lamp is turned on",
+		speech: "The " + room + "  lamp is turned " + onOff,
+		displayText: "The " + room + " lamp is turned " + onOff,
 		source: 'webhook-echo-sample'
 	});
 });  
 
-var  pubnubfunc = function(speech)
+var  pubnubfunc = function(room, onOff)
 {
+	var initiateMessage = { "command" : "turnOfftheSpecificLamp",  "room" : room , "valueonoff" : onOff};
 	pubnub.publish({ 
                     channel   : 'alma',
-                    message   : speech,
+                    message   : initiateMessage,
                     callback  : function(e) { 
                         console.log( "SUCCESS!", e );
 						success	= true;
