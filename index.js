@@ -34,7 +34,16 @@ restService.post('/echo', function(req, res) {
 
 var  pubnubfunc = function(room, onOff)
 {
-	var initiateMessage = { "command" : "turnOfftheSpecificLamp",  "room" : room , "valueonoff" : onOff};
+	var command
+	if (onoff === "on")
+	{
+		command = "turnOntheSpecificLamp";
+	}
+	else
+	{
+		command = "turnOfftheSpecificLamp";
+	}
+	var initiateMessage = { "command" : command,  "room" : room , "valueonoff" : onOff};
 	pubnub.publish({ 
                     channel   : 'alma',
                     message   : initiateMessage,
