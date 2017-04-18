@@ -19,18 +19,33 @@ restService.use(bodyParser.urlencoded({
 
 restService.use(bodyParser.json());
 
-var success  = false;
+var sessionid = undefined;
+var init = false;
 
 restService.post('/echo', function(req, res) {
-    var room = req.body.result && req.body.result.parameters && req.body.result.parameters.Room ? req.body.result.parameters.Room : "Seems like some problem. Room."
-  	var onOff = req.body.result && req.body.result.parameters && req.body.result.parameters.OnOff ? req.body.result.parameters.OnOff : "Seems like some problem. OnOff."
-	
-	pubnubfunc(room, onOff);
-	return res.json({
-		speech: "The " + room + "  lamp is turned " + onOff + "		sessionId: " + req.body.sessionId,
-		displayText: "The " + room + " lamp is turned " + onOff + "		sessionId: " + req.body.sessionId,
-		source: 'webhook-echo-sample'
-	});
+    if (init)
+	{
+		var room = req.body.result && req.body.result.parameters && req.body.result.parameters.Room ? req.body.result.parameters.Room : "Seems like some problem. Room."
+		var onOff = req.body.result && req.body.result.parameters && req.body.result.parameters.OnOff ? req.body.result.parameters.OnOff : "Seems like some problem. OnOff."
+		
+		pubnubfunc(room, onOff);
+		return res.json({
+			speech: "The " + room + "  lamp is turned " + onOff + "		sessionId: " + req.body.sessionId,
+			displayText: "The " + room + " lamp is turned " + onOff + "		sessionId: " + req.body.sessionId,
+			source: 'webhook-echo-sample'
+		});
+	}
+	else
+	{
+		sessionId = req.body.sessionId;
+		init = true;
+		var init = req.body.result.init;
+		return res.json({
+			speech: "Home initialized : sessionId: " + sessionId,
+			displayText: "Home initialized : sessionId: " + sessionId,
+			source: 'webhook-echo-sample'
+		});
+	}
 });  
 
 var  pubnubfunc = function(room, onOff)
