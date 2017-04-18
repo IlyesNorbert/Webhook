@@ -23,7 +23,7 @@ var sessionId = undefined;
 var init = false;
 
 restService.post('/echo', function(req, res) {
-    if (init)
+    if (sessionId != undefined)
 	{
 		var room = req.body.result && req.body.result.parameters && req.body.result.parameters.Room ? req.body.result.parameters.Room : "Seems like some problem. Room."
 		var onOff = req.body.result && req.body.result.parameters && req.body.result.parameters.OnOff ? req.body.result.parameters.OnOff : "Seems like some problem. OnOff."
