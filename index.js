@@ -25,12 +25,12 @@ var init = false;
 restService.post('/echo', function(req, res) {
     if (sessionId != undefined)
 	{
-		var room = req.body.result && req.body.result.parameters && req.body.result.parameters.room.original ? req.body.result.parameters.room.original : "Seems like some problem. Room."
-		var device = req.body.result && req.body.result.parameters && req.body.result.parameters.device.original ? req.body.result.parameters.device.original : "Seems like some problem. OnOff."
+		//var room = req.body.result && req.body.result.parameters && req.body.result.parameters.room.original ? req.body.result.parameters.room.original : "Seems like some problem. Room."
+		//var device = req.body.result && req.body.result.parameters && req.body.result.parameters.device.original ? req.body.result.parameters.device.original : "Seems like some problem. OnOff."
 		
 		return res.json({
-			speech: "The " + room + " " + device + " is turned ",
-			displayText: "The " + room + " " + device + " is turned ",
+			speech: "The is turned ",
+			displayText: req.body.result,
 			source: 'webhook-echo-sample'
 		});
 	}
