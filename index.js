@@ -25,13 +25,12 @@ var init = false;
 restService.post('/echo', function(req, res) {
     if (sessionId != undefined)
 	{
-		var room = req.body.result && req.body.result.parameters && req.body.result.parameters.Room ? req.body.result.parameters.Room : "Seems like some problem. Room."
-		var onOff = req.body.result && req.body.result.parameters && req.body.result.parameters.OnOff ? req.body.result.parameters.OnOff : "Seems like some problem. OnOff."
+		var room = req.body.result && req.body.result.parameters && req.body.result.parameters.room.original ? req.body.result.parameters.room.original : "Seems like some problem. Room."
+		var device = req.body.result && req.body.result.parameters && req.body.result.parameters.device.original ? req.body.result.parameters.device.original : "Seems like some problem. OnOff."
 		
-		pubnubfunc(room, onOff);
 		return res.json({
-			speech: "The " + room + "  lamp is turned " + onOff + "		sessionId: " + req.body.sessionId,
-			displayText: "The " + room + " lamp is turned " + onOff + "		sessionId: " + req.body.sessionId,
+			speech: "The " + room + " " + device + " is turned ",
+			displayText: "The " + room + " " + device + " is turned ",
 			source: 'webhook-echo-sample'
 		});
 	}
@@ -48,33 +47,6 @@ restService.post('/echo', function(req, res) {
 	}
 });  
 
-var  pubnubfunc = function(room, onOff)
-{
-	process.stdout.write("hello: " + onOff);
-	var command
-	if (onOff === "on")
-	{
-		command = "turnOntheSpecificLamp";
-	}
-	else
-	{
-		command = "turnOfftheSpecificLamp";
-	}
-	var initiateMessage = { "command" : command,  "room" : room , "valueonoff" : onOff};
-	pubnub.publish({ 
-                    channel   : 'alma1',
-                    message   : initiateMessage,
-                    callback  : function(e) { 
-                        console.log( "SUCCESS!", e );
-						success	= true;
-					},
-                    error     : function(e) {
-						success = false;
-                        response.tellWithCard("Could not connect", "Drone", "Could not connect");
-                        console.log( "FAILED! RETRY PUBLISH!", e ); 
-						}
-                });  
-}
 restService.listen((process.env.PORT || 8000), function() {
     console.log("Server up and listening");
 });
