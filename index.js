@@ -29,8 +29,8 @@ restService.post('/echo', function(req, res) {
 		//var device = req.body.result && req.body.result.parameters && req.body.result.parameters.device.original ? req.body.result.parameters.device.original : "Seems like some problem. OnOff."
 		
 		return res.json({
-			speech: result.action,
-			displayText: result.action,
+			speech: req.body.result.action,
+			displayText: req.body.result.action,
 			source: 'webhook-echo-sample'
 		});
 	}
