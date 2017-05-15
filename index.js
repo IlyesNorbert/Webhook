@@ -27,12 +27,13 @@ restService.post('/echo', function(req, res) {
 	{
 		//var room = req.body.result && req.body.result.parameters && req.body.result.parameters.room.original ? req.body.result.parameters.room.original : "Seems like some problem. Room."
 		//var device = req.body.result && req.body.result.parameters && req.body.result.parameters.device.original ? req.body.result.parameters.device.original : "Seems like some problem. OnOff."
-		
-		return res.json({
-			speech: req.body.result.action,
-			displayText: req.body.result.action,
-			source: 'webhook-echo-sample'
-		});
+		if (req.body.result.action === "smarthome.device.switch.off"){
+			return res.json({
+				speech: "turned off.",
+				displayText: "Turned off.",
+				source: 'Viki-Smart-Home'
+			});
+		}
 	}
 	else
 	{
@@ -40,9 +41,9 @@ restService.post('/echo', function(req, res) {
 		init = true;
 		var init = req.body.result.init;
 		return res.json({
-			speech: "Home initialized : sessionId: " + sessionId + " init :" + init,
-			displayText: "Home initialized : sessionId: " + sessionId + " init :" + init,
-			source: 'webhook-echo-sample'
+			speech: "Home initialized.",
+			displayText: "Home initialized.",
+			source: 'Viki-Smart-Home'
 		});
 	}
 });  
